@@ -40,10 +40,10 @@ services:
   postgres-task:
     image: postgres:15
     command: ["postgres", "-c", "listen_addresses=*"]
-    # environment:
-    #   POSTGRES_DB: task_service
-    #   POSTGRES_USER: postgres
-    #   POSTGRES_PASSWORD: postgres
+    environment:
+      POSTGRES_DB: task_service
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5433:5432"
     healthcheck:
