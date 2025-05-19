@@ -20,7 +20,7 @@ Este projeto consiste em um sistema simples para gerenciamento de tarefas, compo
 
 Antes de executar o projeto tente seguir o passo-a-passo mais seguro que é o de subir primeiro os bancos, depois build dos serviços banckends, depois subir o serviço backend, depois buildar o frontend depois subir por fim o frontend;
 
-Porém, se seu ambiente docker está saudável, pode pular essas etapas e apenas ir para a etapa X
+Observe também as portas vagas da sua rede 4200, 8080, 8081, 5432, 5433;
 
 
 ### 1. Clone este repositório
