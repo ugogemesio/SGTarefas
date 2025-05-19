@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  title: Task Service API
+  description: API para gerenciamento de tarefas
+  version: 1.0.0
+paths:
+  /tarefas:
+    get:
+      tags:
+        - Tarefas
+      summary: Lista Todas as Tarefas
+      responses:
+        '200':
+          description: Lista de tarefas retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskResponseDTO'
+    post:
+      tags:
+        - Tarefas
+      summary: Cria uma nova tarefa
+      description: Cria uma tarefa vinculada a um usuário. O status deve ser PENDENTE, EM_ANDAMENTO ou CONCLUÍDO.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskCreateDTO'
+      responses:
+        '201':
+          description: Tarefa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Dados inválidos ou malformados
+        '500':
+          description: Erro interno ao criar tarefa
+
+  /tarefas/filtrar:
+    get:
+      tags:
+        - Tarefas
+      summary: Filtra tarefas por status e ID do usuário
+      parameters:
+        - name: status
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/TaskStatus'
+        - name: userId
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tarefas filtradas com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskResponseDTO'
+        '400':
+          description: Parâmetros inválidos
+
+  /tarefas/{id}:
+    put:
+      tags:
+        - Tarefas
+      summary: Atualiza uma tarefa existente
+      description: Atualiza os dados de uma tarefa pelo ID. O status deve ser PENDENTE, EM_ANDAMENTO ou CONCLUÍDO.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateDTO'
+      responses:
+        '200':
+          description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponseDTO'
+        '404':
+          description: Tarefa não encontrada
+        '422':
+          description: Status inválido
+        '500':
+          description: Erro interno ao atualizar tarefa
+    delete:
+      tags:
+        - Tarefas
+      summary: Deleta uma tarefa pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Tarefa deletada com sucesso
+        '404':
+          description: Tarefa não encontrada
+
+  /tarefas/exists-by-user/{userId}:
+    get:
+      tags:
+        - Tarefas
+      summary: Verifica se o usuário possui tarefas
+      description: Retorna true se o usuário tiver ao menos uma tarefa associada.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Consulta realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '404':
+          description: Usuário não encontrado
+
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titulo:
+          type: string
+          example: "Implementar API"
+        descricao:
+          type: string
+          example: "Desenvolver endpoints RESTful"
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        userId:
+          type: integer
+          example: 123
+
+    TaskCreateDTO:
+      type: object
+      required:
+        - titulo
+        - descricao
+        - status
+        - userId
+      properties:
+        titulo:
+          type: string
+          example: "Implementar API"
+        descricao:
+          type: string
+          example: "Desenvolver endpoints RESTful"
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        userId:
+          type: integer
+          example: 123
+
+    TaskUpdateDTO:
+      type: object
+      properties:
+        titulo:
+          type: string
+          example: "Atualizar documentação"
+        descricao:
+          type: string
+          example: "Revisar especificação OpenAPI"
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+
+    TaskResponseDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titulo:
+          type: string
+          example: "Implementar API"
+        descricao:
+          type: string
+          example: "Desenvolver endpoints RESTful"
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        userId:
+          type: integer
+          example: 123
+
+    TaskStatus:
+      type: string
+      enum:
+        - PENDENTE
+        - EM_ANDAMENTO
+        - CONCLUÍDO
+      example: PENDENTE
+
+securitySchemes:
+  bearerAuth:
+    type: http
+    scheme: bearer
+    bearerFormat: JWT

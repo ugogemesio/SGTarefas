@@ -1,0 +1,13 @@
+package mv.desafio.user_service.client;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class TaskServiceClientFallback implements TaskServiceClient {
+
+    @Override
+    public boolean usuarioPossuiTarefas(Long userId) {
+        // Fallback seguro: assume que o usuário possui tarefas
+        return true;
+    }
+}

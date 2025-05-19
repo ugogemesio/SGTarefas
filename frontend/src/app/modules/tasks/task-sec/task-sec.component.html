@@ -1,0 +1,62 @@
+<!-- task-list.component.html -->
+<div class="tab-content">
+  <div>
+    <h2>Tarefas</h2>
+    <button class="btn-theme" style="background-color: green; color: white;" (click)="openModal()">
+      Nova Tarefa
+    </button>
+  </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+  Carregando tarefas...
+</div>
+
+<div class="error" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+<div class="filters">
+
+
+  <select class="btn-theme" [(ngModel)]="selectedStatus" (change)="aplicarFiltros()">
+    <option value="">Todos os status</option>
+    <option value="PENDENTE">Pendente</option>
+    <option value="EM_ANDAMENTO">Em andamento</option>
+    <option value="CONCLUIDO">Concluído</option>
+  </select>
+  <select class="btn-theme" [(ngModel)]="selectedUserId" (change)="aplicarFiltros()">
+    <option [ngValue]="undefined">Todos os usuários</option>
+    <option *ngFor="let user of users" [value]="user.id">{{ user.nome }}</option>
+  </select>
+
+
+</div>
+<div class="card-container">
+  <div style="gap: 16px;" class="card status" *ngFor="let task of tasks"
+    [ngClass]="['card', getStatusClass(task.status)]">
+    <h3>{{ task.titulo }}</h3>
+    <p> {{ formatarStatus(task.status) }}</p>
+
+
+    <p style="height: 90%; overflow-y: auto">{{ task.descricao }}</p>
+    <p>Criado em {{ task.dataCriacao | date:'dd/MM/yyyy' }}</p>
+
+    <p>Responsável: {{ getUserName(task.userId) }}</p>
+
+
+    <div class="container-button">
+      <button class="btn-theme" *ngIf="podeEditar(task)" (click)="abrirModalEdicao(task)">
+        Editar
+      </button>
+      <button class="btn-theme" (click)="abrirModalConfirmacao(task.id)">
+        Excluir
+      </button>
+    </div>
+  </div>
+</div>
+<app-form-modal [isOpen]="isModalOpen" [title]="isEditMode ? 'Editar Tarefa' : 'Nova Tarefa'" [formFields]="formFields"
+  [initialData]="taskSelecionada" (onClose)="closeModal()" (onSave)="handleTaskSave($event)">
+</app-form-modal>
+<app-confirm-modal-component [isOpen]="isConfirmModalOpen" title="Excluir Tarefa"
+  message="Tem certeza que deseja excluir esta?" (onConfirm)="onConfirmDelete()" (onCancel)="onCancelDelete()">
+</app-confirm-modal-component>

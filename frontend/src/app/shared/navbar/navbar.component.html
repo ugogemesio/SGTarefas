@@ -1,0 +1,6 @@
+<header class="navbar">
+  <h1>Gerenciador de Tarefas</h1>
+  <button (click)="toggleTheme()" [class.dark-mode]="isDarkMode" class="btn-theme">
+    {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+  </button>
+</header>

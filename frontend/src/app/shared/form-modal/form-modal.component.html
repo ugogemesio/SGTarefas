@@ -1,0 +1,43 @@
+<div class="modal" [class.active]="isOpen">
+  <div class="modal-content">
+    <button class="close-modal" (click)="closeModal()">&times;</button>
+    <h2>{{ title }}</h2>
+
+    <form (ngSubmit)="submitForm()">
+      <div class="form-group" *ngFor="let field of formFields">
+        <label [for]="field.name">{{ field.label }}</label>
+
+
+        <textarea *ngIf="field.name === 'descricao'" class="form-control large-height"
+          [(ngModel)]="formData[field.name]" [name]="field.name" [required]="field.required" [id]="field.name"
+          [attr.maxlength]="field.maxLength" [attr.minlength]="field.minLength">
+</textarea>
+
+
+
+        <input *ngIf="field.type !== 'select' && field.name !== 'descricao'" type="{{ field.type || 'text' }}"
+          [id]="field.name" [(ngModel)]="formData[field.name]" [name]="field.name" [required]="field.required"
+          class="form-control" [attr.maxlength]="field.maxLength" [attr.minlength]="field.minLength"
+          [attr.pattern]="field.pattern" [disabled]="field.type === 'select'" />
+
+
+        <select *ngIf="field.type === 'select'" class="form-control" [(ngModel)]="formData[field.name]"
+          [name]="field.name">
+          <option value="" disabled selected>Selecione...</option>
+          <option *ngFor="let opt of field.options" [value]="opt.value">
+            {{ opt.label }}
+          </option>
+        </select>
+
+        <div *ngIf="formErrors[field.name]" class="error-message">
+          {{ formErrors[field.name] }}
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

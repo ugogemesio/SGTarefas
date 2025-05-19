@@ -1,0 +1,14 @@
+<div class="tabs">
+    <div class="tab" [class.active]="selectedTab === 'users'" (click)="selectTab('users')">
+        Usuários
+    </div>
+    <div class="tab" [class.active]="selectedTab === 'tasks'" (click)="selectTab('tasks')">
+        Tarefas
+    </div>
+</div>
+
+<div class="content">
+    <app-user-sec *ngIf="selectedTab === 'users'"></app-user-sec>
+    
+    <app-task-list *ngIf="selectedTab === 'tasks'"></app-task-list>
+</div>

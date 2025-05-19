@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: User Service API
+  version: 1.0.0
+  description: API para gerenciamento de usuários
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /usuarios:
+    get:
+      tags:
+        - Usuários
+      summary: Lista todos os usuários
+      description: Retorna uma lista com todos os usuários cadastrados.
+      responses:
+        '200':
+          description: Lista de usuários retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponseDTO'
+
+    post:
+      tags:
+        - Usuários
+      summary: Cria um novo usuário
+      description: Cria um novo usuário com e-mail único.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateDTO'
+            examples:
+              example1:
+                value:
+                  nome: "João"
+                  email: "joao@email.com"
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '400':
+          description: Dados inválidos
+
+  /usuarios/{userId}:
+    get:
+      tags:
+        - Usuários
+      summary: Busca usuário pelo ID
+      description: Retorna os dados de um usuário específico a partir do seu ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '404':
+          description: Usuário não encontrado
+          content: {}
+
+    put:
+      tags:
+        - Usuários
+      summary: Atualiza um usuário
+      description: Atualiza os dados de um usuário existente.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateDTO'
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponseDTO'
+        '404':
+          description: Usuário não encontrado
+          content: {}
+
+    delete:
+      tags:
+        - Usuários
+      summary: Deleta um usuário
+      description: Exclui permanentemente um usuário pelo ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuário deletado com sucesso
+        '404':
+          description: Usuário não encontrado
+          content: {}
+
+components:
+  schemas:
+    UserCreateDTO:
+      type: object
+      required:
+        - nome
+        - email
+      properties:
+        nome:
+          type: string
+          description: Nome do usuário
+          example: "João Silva"
+        email:
+          type: string
+          format: email
+          description: Email do usuário
+          example: "joao.silva@email.com"
+
+    UserResponseDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID do usuário
+          example: 1
+        nome:
+          type: string
+          description: Nome do usuário
+          example: "João Silva"
+        email:
+          type: string
+          format: email
+          description: Email do usuário
+          example: "joao.silva@email.com"
+        dataCriacao:
+          type: string
+          format: date-time
+          description: Data de criação do usuário
+          example: "2024-05-14T10:30:00"
+
+    UserUpdateDTO:
+      type: object
+      required:
+        - nome
+        - email
+      properties:
+        nome:
+          type: string
+          description: Nome atualizado do usuário
+          example: "João Atualizado"
+        email:
+          type: string
+          format: email
+          description: Email atualizado do usuário
+          example: "joao.atualizado@email.com"

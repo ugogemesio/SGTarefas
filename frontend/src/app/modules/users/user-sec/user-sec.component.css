@@ -1,0 +1,16 @@
+.btn-theme {
+      padding: 8px 16px;
+      font-size: 1rem;
+      border: 2px solid var(--btn-border-color, #444);
+      border-radius: 6px;
+      background-color: var(--btn-bg, #eee);
+      color: var(--btn-color, #222);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--btn-shadow, 0 2px 6px rgba(0, 0, 0, 0.15));
+    }
+
+    .btn-theme:hover {
+      background-color: var(--btn-hover-bg, #ddd);
+      border-color: var(--btn-hover-border, #222);
+    }

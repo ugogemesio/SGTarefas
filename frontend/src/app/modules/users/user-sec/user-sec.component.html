@@ -1,0 +1,31 @@
+<div class="tab-content">
+  <h2>Usuários</h2>
+  <button class="btn-theme" style="background-color: green; color: white;" (click)="openModal()">Novo Usuário</button>
+
+  <app-form-modal [isOpen]="isModalOpen" [title]="isEditMode ? 'Editar Usuário' : 'Novo Usuário'" [formFields]="[
+              { name: 'nome', label: 'Nome', type: 'text', required: true, minLength: 3 },
+              { name: 'email', label: 'Email', type: 'email', required: true }
+              
+        ]" [initialData]="usuarioSelecionado" (onClose)="closeModal()" (onSave)="handleUserSave($event)"
+        #modal="formModal">
+  </app-form-modal>
+  <app-confirm-modal-component [isOpen]="isConfirmModalOpen" title="Excluir Usuário"
+    
+    message="Tem certeza que deseja excluir este usuário?" (onConfirm)="onConfirmDelete()"
+    (onCancel)="onCancelDelete()">
+  </app-confirm-modal-component>
+  <app-confirm-modal-component [isOpen]="isAvisoModalOpen" title="Aviso" [message]="mensagemAviso" [showConfirm]="true"
+    [showCancel]="false" confirmText="OK" (onConfirm)="isAvisoModalOpen = false">
+  </app-confirm-modal-component>
+  <div class="card-container">
+    <div class="card" *ngFor="let user of users">
+      <h3>{{ user.nome }}</h3>
+      <p>Email: {{ user.email }}</p>
+      <p>Data de criação: {{ user.dataCriacao | date:'dd/MM/yyyy' }}</p>
+      <div class="container-button">
+        <button (click)="abrirModalEdicao(user)" class="btn btn-primary">Editar</button>
+        <button (click)="confirmarDeleteUser(user.id)" class="btn" style="background-color: red;">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

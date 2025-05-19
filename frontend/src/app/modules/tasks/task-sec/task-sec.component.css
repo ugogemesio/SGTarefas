@@ -1,0 +1,49 @@
+
+
+.status.badge-pendente {
+    background-color: orange;
+    color: white;
+}
+
+.status.badge-concluido {
+    background-color: green;
+    color: white;
+}
+
+.status.badge-atrasado {
+    background-color: red;
+    color: white;
+}
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.filters {
+  display: flex;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+    background-color: #090909;
+    color: white;
+}
+.btn-theme {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: 2px solid var(--btn-border-color, #444);
+  border-radius: 6px;
+  background-color: var(--btn-bg, #eee);
+  color: var(--btn-color, #222);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--btn-shadow, 0 2px 6px rgba(0, 0, 0, 0.15));
+}
+
+.btn-theme:hover {
+  background-color: var(--btn-hover-bg, #ddd);
+  border-color: var(--btn-hover-border, #222);
+}

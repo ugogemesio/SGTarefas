@@ -1,0 +1,14 @@
+<div class="modal" *ngIf="isOpen">
+  <div class="modal-content">
+    <h3>{{ title }}</h3>
+    <p>{{ message }}</p>
+    <div class="buttons" style="display: flex; justify-content: center; gap: 10px;">
+      <button *ngIf="showCancel" class="btn btn-cancel" (click)="onCancel.emit()">
+        {{ cancelText }}
+      </button>
+      <button *ngIf="showConfirm" class="btn btn-confirm" (click)="onConfirm.emit()">
+        {{ confirmText }}
+      </button>
+    </div>
+  </div>
+</div>
