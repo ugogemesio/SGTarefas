@@ -25,7 +25,14 @@ git clone https://github.com/ugogemesio/SGTarefas.git
 cd SGTaregas
 ```
 
-### 2. Suba os containers com Docker Compose
+### 2. Entre na pasta SGTarefas pelo terminal
+
+```bash
+cd SGTaregas
+```
+
+
+### 3. Suba os containers com Docker Compose
 
 ```bash
 docker-compose up --build
