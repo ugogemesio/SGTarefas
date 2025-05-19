@@ -83,8 +83,8 @@ Este cadeia de comandos comando irá:
 ### 11. Acesse a aplicação
 
 - Frontend: http://localhost:4200
-- API do User Service: http://localhost:8080
-- API do Task Service: http://localhost:8081
+- API do User Service: http://localhost:8080/swagger-ui/index.html#/
+- API do Task Service: http://localhost:8081/swagger-ui/index.html#/
 
 ---
 
