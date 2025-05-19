@@ -1,5 +1,6 @@
 # Sistema de Gerenciamento de Tarefas
-![image](https://github.com/user-attachments/assets/054ef14b-66ee-41d2-b9a3-611e78103f48)
+![image](https://github.com/user-attachments/assets/5d6b37b0-9e6c-4753-981d-cad41ec57384)
+
 
 Este projeto consiste em um sistema simples para gerenciamento de tarefas, composto por:
 
