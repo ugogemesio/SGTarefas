@@ -21,8 +21,8 @@ Este projeto consiste em um sistema simples para gerenciamento de tarefas, compo
 ### 1. Clone este repositório
 
 ```bash
-git clone https://seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/ugogemesio/SGTarefas.git
+cd SGTaregas
 ```
 
 ### 2. Suba os containers com Docker Compose
