@@ -18,11 +18,15 @@ Este projeto consiste em um sistema simples para gerenciamento de tarefas, compo
 
 ## Como executar localmente
 
+Antes de executar o projeto tente seguir o passo-a-passo mais seguro que é o de subir primeiro os bancos, depois build dos serviços banckends, depois subir o serviço backend, depois buildar o frontend depois subir por fim o frontend;
+
+Porém, se seu ambiente docker está saudável, pode pular essas etapas e apenas ir para a etapa X
+
+
 ### 1. Clone este repositório
 
 ```bash
 git clone https://github.com/ugogemesio/SGTarefas.git
-cd SGTaregas
 ```
 
 ### 2. Entre na pasta SGTarefas pelo terminal
@@ -32,27 +36,59 @@ cd SGTaregas
 ```
 
 
-### 3. Suba os containers com Docker Compose
+### 3. Suba os bancos de dados de usuários com Docker Compose
 
 ```bash
-docker-compose up --build
+docker compose up postgres-user -d
 ```
 
-Este comando irá:
+### 4. Suba os bancos de dados de tarefas de usuários com Docker Compose
+
+```bash
+docker compose up postgres-task -d
+```
+
+### 5. Faça build do backend de usuarios
+```bash
+docker compose build user-service
+```
+### 6. Suba o backend de usuarios
+
+```bash
+docker compose up user-service -d
+```
+
+### 7. Faça build do backend de  tarefas de usuarios
+```bash
+docker compose build task-service
+```
+### 8. Suba o backend de tarefas de usuarios
+```bash
+docker compose up task-service -d
+```
+### 9. Faça build do frontend
+```bash
+docker compose build frontend
+```
+### 10. Suba o frontend
+```bash
+docker compose up frontend -d
+```
+Este cadeia de comandos comando irá:
 
 - Construir as imagens dos microserviços e do frontend
 - Baixar e iniciar os containers PostgreSQL
 - Subir todos os serviços na rede Docker configurada
 
-### 3. Acesse a aplicação
+### 11. Acesse a aplicação
 
-- Frontend: [http://localhost:4200](http://localhost:4200)
-- API do User Service: [http://localhost:8080](http://localhost:8080)
-- API do Task Service: [http://localhost:8081](http://localhost:8081)
+- Frontend: http://localhost:4200
+- API do User Service: http://localhost:8080
+- API do Task Service: http://localhost:8081
 
 ---
 
-Documentação da API e Relatórios de Testes
+### Documentação da API e Relatórios de Testes
 A documentação interativa das APIs está disponível via Swagger UI em:
 
 User Service: http://localhost:8080/swagger-ui/index.html#/
@@ -118,7 +154,8 @@ docker-compose logs -f
 - Node 18
 - Angular CLI 19
 - PostgreSQL 15
-- Docker e Docker Compose
+- Docker 28.1.1
+- Docker Compose 2.35.1
 
 ---
 
