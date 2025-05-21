@@ -101,17 +101,21 @@ Task Service: http://localhost:8081/swagger-ui/index.html#/
 Os relatórios de cobertura dos testes (Jacoco) e teste de unidade podem ser acessados em:
 
 User Service: http://localhost:8080/jacoco/index.html
+
+Testes unitários:
 User service: http://localhost:8080/surefire-report.html
 
 Task Service: http://localhost:8081/jacoco/index.html
-Task Service: http://localhost:8081/surefire-report.html
+
+Testes unitários:
+Task Service: http://localhost:8081/site/surefire-report.html
 
 Para verificar os testes acesse o código até a pasta:
 
 Os teste de integração também tem um relatório simples e podem ser acessados em:
 
 User Service: http://localhost:8080/failsafe/TEST-mv.desafio.user_service.integration.UserControllerIT.xml
-Task Service: http://localhost:8081/failsafe/TEST-mv.desafio.task_service.integration.TaskControllerIT.xml
+Task Service: http://localhost:8081/site/failsafe/TEST-mv.desafio.task_service.integration.TaskControllerIT.xml
 
 
 ## Estrutura do projeto
